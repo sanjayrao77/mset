@@ -1,0 +1,43 @@
+
+. .=interest interest income
+. .=dividends dividend income
+. .=qualified qualified dividends
+. .=nontax non-taxable income
+. .=ms Morgan Stanley
+. .=ml Merril Lynch
+. .=boa Bank of America
+. .=wf Wells Fargo
+
+.=mainmenu Taxes simple example \n\n
+Try mset.py taxes.simple.txt \.report
+
+.ms .interest Morgan Stanley tech stonks 10.31 ._sum(10.31) \n
+
+.ms .dividends Morgan Stanley taxable munis 3.34 ._sum(3.34) \n
+
+.ms .qualified Morgan Stanley qualified divs 1.56 ._sum(1.56) \n
+
+.ms .nontax Morgan Stanley non-tax munis 4.45 ._sum(4.45) \n
+
+.boa .interest BoA savings account 0.08 ._sum(0.08) \n
+
+.wf .interest Wells Fargo savings account 5.23 ._sum(5.23) \n
+
+.ml .dividends Merril Lynch mutual fund 67.11 ._sum(67.11) \n
+
+.boa .dividends BoA Vanguard 9.81 ._sum(9.81) \n
+
+.=report
+Items \n
+._include(.ms)
+._include(.boa)
+._include(.wf)
+._include(.ml)
+\n
+Interest \n
+._set(sum,0) ._include(.interest)
+Total: \space ._printvar(sum)
+\n\n
+Dividends \n
+._set(sum,0) ._include(.dividends)
+Total: \space ._printvar(sum)

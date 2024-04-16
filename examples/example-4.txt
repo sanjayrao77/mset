@@ -1,0 +1,9 @@
+.=foo
+
+.foo ._set(potatoes,0) I took an empty bag,
+
+.foo ._sum(potatoes,21,2) added 21 half-potatoes,
+
+.foo ._sum(potatoes,3,2) added 3 more half-potatoes,
+
+.foo and in the end I had \space ._printvar(potatoes) \space potatoes.

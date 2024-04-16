@@ -1,0 +1,10 @@
+.=price Price
+
+.=potato ._map(.price,(1.00)) Potatoes are round.
+
+.=2bucks 2 dollars
+
+.=carrot ._map(.price,.2bucks) Carrots are not potatoes.
+
+.=foo Price of a potato: ._unmap(.potato,.price) \bs . \n
+Price of a carrot: ._unmap(.carrot,.price) \bs .

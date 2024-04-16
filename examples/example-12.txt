@@ -1,0 +1,12 @@
+.=functions Functions
+
+.=functions.price Price
+
+.=potato ._map(.functions.price,(1.00)) Potatoes are round.
+
+.=2bucks 2 dollars
+
+.=carrot ._map(.functions.price,.2bucks) Carrots are not potatoes.
+
+.=foo Price of a potato: ._unmap(.potato,.functions.price) \bs . \n
+Price of a carrot: ._unmap(.carrot,.functions.price) \bs .

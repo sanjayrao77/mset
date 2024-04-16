@@ -1,0 +1,13 @@
+.=story
+
+.story Hi world
+
+I .story was wondering
+
+what goes
+.story
+
+.story
+on
+
+in the world .story

@@ -1,0 +1,8 @@
+. .=chapter1 Chapter 1
+. .=debug Internal comments
+
+.chapter1 It was the best of times,
+
+.chapter1 .debug \n DEBUG: Think of something clever! \n
+
+.chapter1 it was the worst of times.

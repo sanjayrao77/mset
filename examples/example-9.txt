@@ -1,0 +1,3 @@
+.=foo(a,b,c) .$a is the way to .$b to .$c
+
+.=bar .<foo(hi,there,world) \n .<foo(how,are,things)

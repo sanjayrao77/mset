@@ -1,0 +1,58 @@
+
+.# These are for html / text switching, use +html to enable html
+. .?+html ._globalstring(_escapesmode,html)
+. .?+html .=break \n\br
+. .?-html ._globalstring(_escapesmode,text)
+. .?-html .=break \br
+
+.# these are buckets to classify rows
+. .=interest interest income
+. .=dividends dividend income
+. .=qualified qualified dividends
+. .=nontax non-taxable income
+.# these are financial institutions, rows map to a bucket and an institution
+. .=ms Morgan Stanley
+. .=ml Merril Lynch
+. .=boa Bank of America
+. .=wf Wells Fargo \space\space
+
+.# this is the default printout, we use it to display options to the user
+.=mainmenu Taxes fancy example \n\n
+text: mset.py taxes.fancy.txt \.report \n
+html: mset.py taxes.fancy.txt +html \.report
+
+.# these are mapping functions
+. .=price Price
+. .=inst Institution
+. .=desc Description
+
+.# this is a template for printing out a row
+.=onerow(a) ._unmap(.$a,.inst) \tab ._unmap(.$a,.desc) \tab ._unmap(.$a,.price) ._sum(._unmap(.$a,.price))
+
+.# these are the data rows
+. .ms .inst=.ms .price=(10.31) .desc=(tech stonks) .interest ._include(.onerow(.$_uid))
+. .ms .inst=.ms .price=(3.34) .desc=(taxable munis) .dividends ._include(.onerow(.$_uid))
+. .ms .inst=.ms .price=(1.56) .desc=(qualified divs) .qualified ._include(.onerow(.$_uid))
+. .ms .inst=.ms .price=(4.45) .desc=(non-tax munis) .nontax ._include(.onerow(.$_uid))
+. .boa .inst=.boa .price=(0.08) .desc=(savings account) .interest ._include(.onerow(.$_uid))
+. .wf .inst=.wf .price=(5.23) .desc=(savings account) .interest ._include(.onerow(.$_uid))
+. .ml .inst=.ml .price=(67.11) .desc=(mutual fund) .dividends ._include(.onerow(.$_uid))
+. .boa .inst=.boa .price=(9.81) .desc=(Vanguard) .dividends ._include(.onerow(.$_uid))
+
+.=report Add subreports to this
+
+.report \Bold Items \bold .<break
+._include(.ms,.break) .<break
+._include(.boa,.break) .<break
+._include(.wf,.break) .<break
+._include(.ml,.break) .<break
+.<break
+
+.report \Bold Interest \bold .<break
+._set(sum,0) ._include(.interest,.break)
+\tab \Italic Total: \space ._printvar(sum) \italic .<break
+.<break
+
+.report \Bold Dividends \bold .<break
+._set(sum,0) ._include(.dividends,.break)
+\tab \Italic Total: \space ._printvar(sum) \italic .<break

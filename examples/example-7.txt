@@ -1,0 +1,3 @@
+.=foo Make it shorter
+
+.=bar The whole city saw the billboard. It proclaimed " .<foo " and people understood.

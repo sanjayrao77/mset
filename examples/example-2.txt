@@ -1,0 +1,1 @@
+.=mainmenu \P \Bold Hi world!! \bold This \n is \n an \n example of \n\n escaping.
