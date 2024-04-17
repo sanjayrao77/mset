@@ -17,8 +17,6 @@ version with the outline interleaved in the output.
 
 I can also use a single source file to create both HTML/XHTML and UTF8 output.
 
-*mset* is a successor to [bookbits](https://github.com/sanjayrao77/bookbits).
-
 *mset* can also be used as a simple database, generating spreadsheets or reports as output.
 
 ## Installing
@@ -32,18 +30,20 @@ currently less than 1500 lines.
 ## Usage
 
 Assuming you have a text file, you can run "mset.py file.txt" to print the ".mainmenu" node or
-"bookbits.py file.txt .NAME1 .NAME2 ..." to print the nodes of NAME1, NAME2, etc.
+"mset.py file.txt .NAME1 .NAME2 ..." to print the nodes of NAME1, NAME2, etc.
 
 ## Quick start
 
-To get a quick look, you can download helloworld.txt and story.txt as example files.
+To get a quick look, you can download mset.py, examples/helloworld.txt and examples/story.txt as example files.
 
-With that done, you can run "mset.py helloworld.txt" to see the main menu in helloworld.txt
+With that done, you can run "./mset.py helloworld.txt" to see the main menu in helloworld.txt
 
-After you see the menu text, you can run "mset.py helloworld.txt .hello".
+After you see the menu text, you can run "./mset.py helloworld.txt .hello".
 
 For the story example, you can run "mset.py story.txt" to see the main menu and then try the options printed.
 For example, "mset.py story.txt .outline" will print the plot outline.
+
+For examples of using *mset* as a database, you could look at examples/taxes.simple.txt and examples/taxes.fancy.txt.
 
 ## Command line arguments
 

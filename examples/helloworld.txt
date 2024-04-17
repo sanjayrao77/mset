@@ -1,0 +1,7 @@
+.# helloworld.txt
+
+.=mainmenu
+This is helloworld.txt, to see rendered text, try: \n "mset.py helloworld.txt \.hello"
+
+.=hello
+Hello world!

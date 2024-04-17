@@ -1,0 +1,67 @@
+.# comments are done like this
+
+.=mainmenu Example story, the following exports work, e.g. "mset.py story.txt \.chapters"
+\n \.chapters : to print the story
+\n \.outline : to print outline info
+\n \.debug : to print raw todo items
+\n \.chapters \.-debug : to print story without todo items
+
+
+.# Harry is the protagonist, reference this as .<prot
+.=prot Harry
+
+.=chapter1 Chapter 1
+
+.=chapter2 Chapter 2
+
+.=debug Add outline content here
+
+.# .< as a prefix means to substitute text, where .<prot is replaced with the value of .prot
+.=chapters
+\n
+.<prot \bs 's Big Day \n \n
+Chapter 1 \n \n
+.<chapter1 \n \n
+Chapter 2 \n \n
+.<chapter2
+
+.=outline
+## Outline \n \n
+## Chapter 1 \n
+## Chapter 2 \n
+
+.# starting lines with ". " means each line stands alone
+. .=d1,1 .debug .chapter1 ## A piano hits .<prot \n
+. .=d1,2 .debug .chapter1 ## We learn it was the second one \n
+. .=d1,3 .debug .chapter1 ## He starts to doubt his reality \n
+
+.=u1,1 .chapter1 ._global0(d1,1) <p> .<prot didn't start worrying until the second time a piano fell on his bus. \n
+
+.chapter1 ._global0(u1,1) ._global0(d1,1) ._global0(d1,2) <p> .<prot was surprised the second time a piano fell on his bus. \n
+
+.chapter1 He was also surprised the first time, but not in the same way. \n
+
+.=u2,1 .chapter1 Strange things happen in life, and in the scheme of things a Steinway appearing a hundred
+feet above a street didn't seem unusual at the time. \n
+
+.chapter1 ._global0(u2,1) Strange things happen in life, and in the scheme of things a Steinway appearing a hundred
+feet above a street in the middle of the day didn't seem unusual at the time. \n
+
+.chapter1 However, the second piano made him rethink his luck with the first piano. Maybe the first time was incredibly
+unusual. With more thought, it didn't seem like such a thing was even possible. There were no tall buildings near the street
+and planes and helicopters, as a rule, don't carry pianos. \n
+
+.chapter1 ._global0(d1,3) On the other hand, now that it had happened twice in the same month, maybe it is actually a frequent
+occurance. The thought made him confused. On the one hand, it seemed incredibly unlikely to happen even once,
+but the undeniable fact was that it was actually a common occurence. \n
+
+.chapter1 After some contemplation, he decided to forget about the issue until a third piano hit his bus. At such a point,
+there would be more reason to think about it and he'd also be able to make a data-backed decision. \n
+
+. .=d2,1 .debug .chapter2 ## he thinks about buying a lottery ticket \n
+. .=d2,2 .debug .chapter2 ## his boss doubts his excuse for being late \n
+
+.chapter2 <p> .<prot entered the office, an hour late because of the bus breaking down. \n
+
+.chapter2 ._global0(d2,2) His boss asked him why he was late again and gave a skeptical look when hearing .<prot \bs 's bus was hit by another piano.
+
