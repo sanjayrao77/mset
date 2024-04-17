@@ -1246,11 +1246,13 @@ class Escapes:
 		return None
 
 class PreOutput():
-	def __init__(self,globalvars):
+	def __init__(self,globalvars,fout):
 		self.words=[]
 		self.wantspace=False
 		self.space=Word(' ')
 		self.globalvars=globalvars
+		self.fout=fout
+		self.isbrokenline=False
 	def literal(self,text):
 		if self.wantspace: self.words.append(self.space)
 		else: self.wantspace=True
@@ -1275,7 +1277,11 @@ class PreOutput():
 		if text not in ('set','setstring','unset','sum','printvar','assert'): return
 		w=Word.command(text,text,params)
 		self.words.append(w)
-	def finalize(self,fout,isforce=None):
+	def printout(self,text):
+		if 0==len(text): return
+		self.isbrokenline=(text[-1]!='\n')
+		print(text,end='',file=self.fout)
+	def finalize(self,isforce=None):
 		isassertcheck=True
 		if self.globalvars.istrue('_noassert'): isassertcheck=False
 		if isforce: isassertcheck=not isforce
@@ -1283,12 +1289,12 @@ class PreOutput():
 		escapes=Escapes.find(escapesmode)
 		rv=RuntimeVars()
 		for w in self.words:
-			if w.text: print(escapes.filter(w.text),end='',file=fout) ; continue
+			if w.text: self.printout(escapes.filter(w.text)) ; continue
 			if w.escape:
-				if w.escape=='t': print('\t',end='',file=fout)
-				elif w.escape=='n': print('\n',end='',file=fout)
+				if w.escape=='t': self.printout('\t')
+				elif w.escape=='n': self.printout('\n')
 #				elif w.escape=='space': print(escapes.filter(' '),end='',file=fout)
-				else: print(escapes.process(w.escape),end='',file=fout)
+				else: self.printout(escapes.process(w.escape))
 			elif w.cmd:
 				if w.cmd in ('set','setstring','unset','sum','printvar'):
 					rv.run(w)
@@ -1297,6 +1303,10 @@ class PreOutput():
 				else:
 					raise ValueError('unhandled command: %s'%w)
 
+def printusage():
+	print('Usage: mset.py INFILE [+flag] [--option] [.nodename]')
+	print('Options: --html, --xhtml --text --force --p0dump -gvdump --nodesdump --namesdump --debug')
+	exit(0)
 
 if False:
 	text='._join(.a.b.c)'
@@ -1314,6 +1324,8 @@ nodes_dump=False
 names_dump=False
 isforce=None
 
+if 1==len(sys.argv): printusage()
+
 for arg in sys.argv[1:]:
 	if arg.startswith('--'):
 		if arg=='--html': p0.setvarcmd('._globalstring(_escapesmode,html)')
@@ -1325,6 +1337,7 @@ for arg in sys.argv[1:]:
 		elif arg=='--nodesdump': nodes_dump=True
 		elif arg=='--namesdump': names_dump=True
 		elif arg=='--debug': isdebug_global=True
+		elif arg=='--help': printusage()
 		else:
 			raise ValueError("Unknown argument %s"%arg)
 	elif arg.startswith('+'):
@@ -1368,7 +1381,7 @@ if names_dump:
 	nodes.names_dump()
 	exit(0)
 
-po=PreOutput(nodes.globalvars)
+po=PreOutput(nodes.globalvars,sys.stdout)
 
 suppressions=Suppressions()
 for path in topsuppressions:
@@ -1381,5 +1394,5 @@ for path in exports:
 		node.dump()
 	else:
 		node.export(nodes,suppressions,po,10,relt)
-po.finalize(sys.stdout,isforce)
-print()
+po.finalize(isforce)
+if po.isbrokenline: print()
