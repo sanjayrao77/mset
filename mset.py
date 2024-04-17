@@ -1083,7 +1083,7 @@ class Nodes():
 		p=params[0]
 		nn=self.findtopgenenode(p,globalvars,node)
 		if not nn: node_errorout(node,'topnode not found "%s"'%(p))
-		nn=node
+		node=nn
 		relt=0 # 1: self, 2: all, 3: components, 4: examples, 5: items
 		for w in params[1:]:
 			w=w.onlytext(self)
